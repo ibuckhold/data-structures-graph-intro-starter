@@ -56,7 +56,7 @@ class Graph {
     // Code goes here ...
   }
 
-}
+};
 
 module.exports = {
   Graph

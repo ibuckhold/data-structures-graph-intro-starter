@@ -33,7 +33,19 @@ class Graph {
   }
 
   breadthFirstTraversal(startingVertex) {
-    // Code goes here ...
+    let visted = [startingVertex]
+    let queue = new Queue(this.adjList.length)
+    queue.enqueue(startingVertex)
+    while (queue.length){
+      let currVert = queue.dequeue()
+      this.adjList[currVert]
+        .filter(v => !visited.includes(v))
+        .forEach(v =>{
+          visited.push(v)
+          queue.enqueue(v)
+          })
+    }
+    return visted
   }
 
   depthFirstTraversalIterative(startingVertex) {

@@ -33,29 +33,51 @@ class Graph {
   }
 
   breadthFirstTraversal(startingVertex) {
-    let visted = [startingVertex]
-    let queue = new Queue(this.adjList.length)
-    queue.enqueue(startingVertex)
-    while (queue.length){
-      let currVert = queue.dequeue()
-      this.adjList[currVert]
-        .filter(v => !visited.includes(v))
-        .forEach(v =>{
+    let visited = [startingVertex]
+    let queue = new Array()
+    queue.push(startingVertex)
+    while (queue.length) {
+      let currVert = queue.shift();
+      this.adjList[currVert].filter(v => !visited.includes(v)).forEach(v =>{
           visited.push(v)
-          queue.enqueue(v)
+          queue.push(v)
           })
     }
-    return visted
+    return visited
   }
 
   depthFirstTraversalIterative(startingVertex) {
-    // Code goes here ...
+    let vertexes= [];
+    let visited= new Set;
+    if (startingVertex) {
+      let stack= [];
+      stack.push(startingVertex)
+      while (stack.length !== 0) {
+        let item= stack.pop();
+        if (visited.has(item)) {
+          continue;
+        }
+        visited.add(item);
+        vertexes.push(item);
+        let children= this.adjList[item];
+        for (let i=0; i<=children.length-1; i++) {
+            stack.push(children[i]);
+        }
+      }
+    }
+    return vertexes;
   }
 
   depthFirstTraversalRecursive(startingVertex, visited = new Set(), vertices = []) {
-    // Code goes here ...
+    if (visited.has(startingVertex)) return;
+    visited.add(startingVertex)
+    vertices.push(startingVertex);
+    let children= this.adjList[startingVertex];
+    children.forEach((child) => {
+      this.depthFirstTraversalRecursive(child, visited, vertices);
+    })
+    return vertices;
   }
-
 };
 
 module.exports = {
